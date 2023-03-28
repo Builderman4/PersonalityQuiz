@@ -9,11 +9,7 @@ import UIKit
 
 class QuestionViewController: UIViewController {
 
-    
-    
-    
-    
-    @IBOutlet weak var multipleStackViews: UIStackView!
+    @IBOutlet var multipleStackViews: UIStackView!
     
     
     @IBOutlet var questionLabel: UILabel!
@@ -93,16 +89,16 @@ class QuestionViewController: UIViewController {
         questionLabel.text = currentQuestion.text
         questionProgressView.setProgress(totalProgress, animated: true)
 
+        switch currentQuestion.type {
+        case .single:
+            updateSingleStack(using: currentAnswers)
+        case .multiple:
+            updateMultipleStack(using: currentAnswers)
+        case .range:
+            updateRangedStack(using: currentAnswers)
         
-               switch currentQuestion.type {
-               case .single:
-                   updateSingleStackView.isHidden = false
-               case .multiple:
-                   updateMultipleStackView.isHidden = false
-               case .range:
-                   updateRangedStackview.isHidden = false
-               
-               }
+        }
+              
         
     
         func updateSingleStack(using answers: [Answer]) {
@@ -133,6 +129,8 @@ class QuestionViewController: UIViewController {
                   rangedLabel2.text = answers.last?.text
 
        }
+        
+        
 
        var answersChosen: [Answer] = []
      
